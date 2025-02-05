@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration and Login Form</title>
+    <style>
+        body,
+        table,
+        form {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #f4f7fc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        
+        #formTable {
+            width: 100%;
+            max-width: 400px;
+            margin: 20px;
+            border: 1px solid #ccc;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            display: none;
+        }
+        
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        
+        input[type="text"],
+        input[type="password"],
+        input[type="email"],
+        input[type="date"],
+        input[type="radio"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        
+        input[type="radio"] {
+            width: auto;
+            margin-right: 5px;
+        }
+        
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        button:hover {
+            background-color: #45a049;
+        }
+        
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .form-group {
+            margin-bottom: 10px;
+        }
+        
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            color: #333;
+        }
+        
+        .alert {
+            color: red;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        
+        .button-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .button-container button {
+            width: auto;
+            margin: 0 10px;
+        }
+        
+        .starting-page {
+            text-align: center;
+            font-size: 20px;
+            padding: 20px;
+        }
+        
+        @media screen and (max-width: 600px) {
+            #formTable {
+                width: 90%;
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="starting-page">
+        <h1>Welcome to Our Website</h1>
+        <p>Please select an option to proceed</p>
+        <div class="button-container">
+            <button onclick="showForm('login')">Login</button>
+            <button onclick="showForm('register')">Register</button>
+        </div>
+    </div>
+
+    <table id="formTable">
+        <tbody>
+            <tr id="loginRow" style="display: none;">
+                <td>
+                    <h2>Login</h2>
+                    <form onsubmit="return validateLogin()">
+                        <div class="form-group">
+                            <label for="loginUsername">Username</label>
+                            <input type="text" id="loginUsername" placeholder="Username" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="loginPassword">Password</label>
+                            <input type="password" id="loginPassword" placeholder="Password" required>
+                        </div>
+                        <button type="submit">Submit</button>
+                    </form>
+                </td>
+            </tr>
+            <tr id="registerRow" style="display: none;">
+                <td>
+                    <h2>Register</h2>
+                    <form onsubmit="return validateRegister()">
+                        <div class="form-group">
+                            <label for="registerName">Name</label>
+                            <input type="text" id="registerName" placeholder="Name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="registerPhone">Phone</label>
+                            <input type="text" id="registerPhone" placeholder="Phone" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="registerEmail">Email Id</label>
+                            <input type="email" id="registerEmail" placeholder="Email" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Gender</label>
+                            <div>
+                                <input type="radio" id="male" name="gender" value="male"> Male
+                                <input type="radio" id="female" name="gender" value="female"> Female
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="registerDOB">Date of Birth</label>
+                            <input type="date" id="registerDOB" placeholder="Date of Birth" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="registerPassword">Password</label>
+                            <input type="password" id="registerPassword" placeholder="Password" required>
+                        </div>
+
+                        <button type="submit">Submit</button>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script>
+        function showForm(formType) {
+            document.getElementById('loginRow').style.display = 'none';
+            document.getElementById('registerRow').style.display = 'none';
+            document.getElementById('formTable').style.display = 'table';
+
+            if (formType === 'login') {
+                document.getElementById('loginRow').style.display = 'table-row';
+            } else {
+                document.getElementById('registerRow').style.display = 'table-row';
+            }
+        }
+
+        function validateLogin() {
+            const username = document.getElementById('loginUsername').value;
+            const password = document.getElementById('loginPassword').value;
+
+            if (username === '' || password === '') {
+                alert('Please fill in all fields.');
+                return false;
+            }
+
+            alert('Login successful');
+            return false;
+        }
+
+        function validateRegister() {
+            const name = document.getElementById('registerName').value;
+            const phone = document.getElementById('registerPhone').value;
+            const email = document.getElementById('registerEmail').value;
+            const dob = document.getElementById('registerDOB').value;
+            const password = document.getElementById('registerPassword').value;
+
+            if (name === '' || phone === '' || email === '' || dob === '' || password === '') {
+                alert('Please fill in all fields.');
+                return false;
+            }
+
+            for (let x in name) {
+                const ch = name.charCodeAt(x);
+                if ((ch < 65 || ch > 90) && (ch < 97 || ch > 122)) {
+                    alert("Invalid Name");
+                    return false;
+                }
+            }
+
+            const phonePattern = /^[0-9]{10}$/;
+            if (!phone.match(phonePattern)) {
+                alert('Please enter a valid 10-digit phone number.');
+                return false;
+            }
+
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!email.match(emailPattern)) {
+                alert('Please enter a valid email address.');
+                return false;
+            }
+
+            if (password.length > 8) {
+                alert("Password should not exceed 8 characters.");
+                return false;
+            }
+
+            alert('Registration successful');
+            return false;
+        }
+    </script>
+</body>
+
+</html>
